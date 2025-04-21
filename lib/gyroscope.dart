@@ -34,23 +34,49 @@ class _GyroscopeScreenState extends State<GyroscopeScreen> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Center(
-        child: Container(
-          child: Stack(
-            children: [
-              Positioned(
-                top: size.width*0.50,
-                left: size.height*0.50,
-                child: Container(
-                  height: 150,
-                  width: 150,
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    shape: BoxShape.circle,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // El Stack centrado
+            Stack(
+              children: [
+                Positioned(
+                  top: (size.height - 300) / 2,
+                  left: (size.width - 300) / 2,
+                  child: Container(
+                    height: 300,
+                    width: 300,
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      shape: BoxShape.circle,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
+                Positioned(
+                  top:
+                      ((size.height - 50) / 2) +
+                      (_gyroscopeEvent?.x ?? 0) * 100,
+                  left:
+                      ((size.width - 50) / 2) + (_gyroscopeEvent?.y ?? 0) * 100,
+                  child: Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.blue,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            // El texto debajo del Stack
+            SizedBox(height: 20), // Espacio entre el stack y el texto
+            Text("x: ${_gyroscopeEvent?.x}"), Text("y: ${_gyroscopeEvent?.y}"),
+            SizedBox(height: 20), // Espacio entre el stack y el texto
+            Text("z: ${_gyroscopeEvent?.z}"),
+            SizedBox(height: 20), // Espacio entre el stack y el texto
+          ],
         ),
       ),
     );
